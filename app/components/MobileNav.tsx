@@ -12,19 +12,23 @@ import {
 	FileText,
 	Newspaper,
 	ChevronDown,
-	Menu,
+	XIcon,
 } from "lucide-react";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
-import MobileNav from "./MobileNav";
 
-export default function Header() {
+const MobileNav = ({
+	setOpenMobileMenu,
+	openMobileMenu,
+}: {
+	setOpenMobileMenu: Dispatch<SetStateAction<boolean>>;
+	openMobileMenu: boolean;
+}) => {
 	const [openMenu, setOpenMenu] = useState<string | null>(null);
-	const [openMobileMenu, setOpenMobileMenu] = useState(false);
 
-	const handleHover = (menuLabel: string | null) => {
-		setOpenMenu(menuLabel);
+	const handleHover = (menuLabel: string) => {
+		setOpenMenu(openMenu === menuLabel ? null : menuLabel);
 	};
 
 	const NAV_ITEMS = [
@@ -210,50 +214,66 @@ export default function Header() {
 	];
 
 	return (
-		<>
-			<header className="fixed flex justify-between  p-5 left-0 w-fit mx-auto right-0  top-0 z-50 gap-5">
-				{/* Logo */}
-
-				<div className=" hidden rounded-full md:flex bg-slate-950/70 backdrop-blur-md flex-col">
-					<div className="relative w-full flex items-start md:items-center justify-center p-4">
-						<div className="relative gap-5 flex flex-col items-center justify-center">
-							<ul className="relative flex items-center space-x-0">
-								{NAV_ITEMS.map((navItem) => (
-									<li
-										key={navItem.label}
-										className="relative"
-										onMouseEnter={() => handleHover(navItem.label)}
-										onMouseLeave={() => handleHover(null)}
-									>
-										<button
-											className={cn(
-												"text-sm py-1.5 px-4 flex cursor-pointer group transition-colors duration-300 items-center justify-center gap-1 text-white hover:text-white/80 relative"
-											)}
+		<AnimatePresence mode="wait">
+			{openMobileMenu && (
+				<motion.header
+					initial={{ x: "100%" }}
+					animate={{ x: 0 }}
+					exit={{ x: "100%" }}
+					transition={{
+						type: "spring",
+						damping: 25,
+						stiffness: 120,
+						duration: 0.3,
+					}}
+					className="fixed min-h-screen md:hidden right-0 w-full top-0 z-50"
+				>
+					<div className="flex items-center justify-center h-screen bg-slate-950/95 backdrop-blur-md flex-col">
+						<XIcon
+							onClick={() => setOpenMobileMenu(false)}
+							size={25}
+							className="top-5 right-5 absolute text-white hover:text-white/70 active:scale-105 cursor-pointer"
+						/>
+						<div className="relative w-full h-full overflow-y-auto flex items-start justify-start p-4 pt-16">
+							<div className="relative h-full gap-5 flex flex-col items-center justify-center w-full">
+								<ul className="relative flex flex-col items-center space-y-2 w-full">
+									{NAV_ITEMS.map((navItem) => (
+										<li
+											key={navItem.label}
+											className="relative w-full"
+											onClick={() => handleHover(navItem.label)}
 										>
-											<span>{navItem.label}</span>
-											{navItem.subMenus && (
-												<ChevronDown
-													className={`h-4 w-4 group-hover:rotate-180 duration-300 transition-transform
-                  ${openMenu === navItem.label ? "rotate-180" : ""}`}
-												/>
-											)}
-										</button>
+											<button
+												className={cn(
+													"text-sm py-1.5 px-4 w-full flex cursor-pointer  transition-colors duration-300 items-center justify-center gap-1 text-white hover:text-white/80 relative"
+												)}
+											>
+												<span>{navItem.label}</span>
+												{navItem.subMenus && (
+													<ChevronDown
+														className={cn(
+															"h-4 w-4 duration-300 transition-transform",
+															{
+																"rotate-180": openMenu === navItem.label,
+															}
+														)}
+													/>
+												)}
+											</button>
 
-										<AnimatePresence>
-											{openMenu === navItem.label && navItem.subMenus && (
-												<div className="w-auto absolute left-0 top-full pt-2">
-													<motion.div
-														className="bg-slate-950/95 backdrop-blur-md p-4 w-max"
-														style={{ borderRadius: 16 }}
-														layoutId="menu"
-													>
-														<div className="w-fit shrink-0 flex space-x-9 overflow-hidden">
+											{navItem.subMenus && (
+												<div
+													className={cn(
+														"overflow-hidden transition-all duration-300 ease-in-out w-fit mx-auto",
+														openMenu === navItem.label
+															? "max-h-[60vh]"
+															: "max-h-0"
+													)}
+												>
+													<div className="bg-slate-950/95 p-3 backdrop-blur-md w-full">
+														<div className="flex flex-col gap-6 overflow-y-auto">
 															{navItem.subMenus.map((sub) => (
-																<motion.div
-																	layout
-																	className="w-full"
-																	key={sub.title}
-																>
+																<div className="w-full" key={sub.title}>
 																	<h3 className="mb-4 text-sm font-medium capitalize text-white">
 																		{sub.title}
 																	</h3>
@@ -269,11 +289,11 @@ export default function Header() {
 																						<div className="text-white rounded-md flex items-center justify-center size-9 shrink-0 group-hover:bg-accent group-hover:text-accent-foreground transition-colors duration-300">
 																							<Icon className="h-5 w-5 flex-none" />
 																						</div>
-																						<div className="leading-5 w-max text-white">
-																							<p className="text-sm font-medium group-hover:text-white/70 shrink-0 duration-300">
+																						<div className="leading-5 text-white">
+																							<p className="text-sm font-medium group-hover:text-white/70 duration-300">
 																								{item.label}
 																							</p>
-																							<p className="text-xs  shrink-0 group-hover:text-white/70 transition-colors duration-300">
+																							<p className="text-xs group-hover:text-white/70 transition-colors duration-300">
 																								{item.description}
 																							</p>
 																						</div>
@@ -282,50 +302,44 @@ export default function Header() {
 																			);
 																		})}
 																	</ul>
-																</motion.div>
+																</div>
 															))}
 														</div>
-													</motion.div>
+													</div>
 												</div>
 											)}
-										</AnimatePresence>
+										</li>
+									))}
+									<li
+										className="relative"
+										onMouseEnter={() => handleHover("Get started")}
+										onMouseLeave={() => handleHover("")}
+									>
+										<button
+											className={cn(
+												"text-sm py-1.5 px-4 flex cursor-pointer text-white hover:text-white/80 transition-colors duration-300 items-center justify-center gap-1 relative"
+											)}
+										>
+											<span>Sign in</span>
+										</button>
 									</li>
-								))}
-								<li
-									className="relative"
-									onMouseEnter={() => handleHover("Get started")}
-									onMouseLeave={() => handleHover(null)}
-								>
-									<button
-										className={cn(
-											"text-sm py-1.5 px-4 flex cursor-pointer text-white hover:text-white/80 transition-colors duration-300 items-center justify-center gap-1 relative"
-										)}
-									>
-										<span>Sign in</span>
-									</button>
-								</li>
-								<li className="relative">
-									<button
-										className={cn(
-											"text-sm py-2 px-4 flex cursor-pointer text-black  group transition-colors duration-300 items-center justify-center gap-1 relative bg-white rounded-xl hover:text-black hover:bg-white/80 active:bg-white/80"
-										)}
-									>
-										<span>Get started</span>
-									</button>
-								</li>
-							</ul>
+									<li className="relative">
+										<button
+											className={cn(
+												"text-sm py-2 px-4 flex cursor-pointer text-black  group transition-colors duration-300 items-center justify-center gap-1 relative bg-white rounded-xl hover:text-black hover:bg-white/80 active:bg-white/80"
+											)}
+										>
+											<span>Get started</span>
+										</button>
+									</li>
+								</ul>
+							</div>
 						</div>
 					</div>
-				</div>
-				<Menu
-					onClick={() => setOpenMobileMenu(true)}
-					className="ml-auto md:hidden cursor-pointer text-white hover:text-white/70"
-				/>
-				<MobileNav
-					openMobileMenu={openMobileMenu}
-					setOpenMobileMenu={setOpenMobileMenu}
-				/>
-			</header>
-		</>
+				</motion.header>
+			)}
+		</AnimatePresence>
 	);
-}
+};
+
+export default MobileNav;
