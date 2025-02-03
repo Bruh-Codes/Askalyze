@@ -1,12 +1,17 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Circle } from "lucide-react";
 import Header from "./Header";
 import GetStartedButton from "./GetStartedButton";
 import RetroGrid from "./RetroGrid";
 import ElegantShape from "./ElegantShape";
-
+import { Badge } from "@/components/ui/badge";
+import {
+	PackageSearch,
+	ShieldAlert,
+	ShieldQuestion,
+	ZapOff,
+} from "lucide-react";
 // const pacifico = Pacifico({
 // 	subsets: ["latin"],
 // 	weight: ["400"],
@@ -35,8 +40,8 @@ export function Hero({
 	return (
 		<>
 			<Header />
-			<div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-default-background">
-				<div className="absolute inset-0 bg-gradient-to-br from-indigo-500/[0.05] via-transparent to-rose-500/[0.05] blur-3xl" />
+			<div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden ">
+				{/* <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/[0.05] via-transparent to-rose-500/[0.05] blur-3xl" /> */}
 
 				<div className="absolute inset-0 overflow-hidden">
 					<ElegantShape
@@ -86,7 +91,7 @@ export function Hero({
 				</div>
 
 				<div className="relative z-10 container mx-auto px-4 md:px-6">
-					<div className="max-w-5xl mx-auto text-center">
+					<div className="max-w-6xl mx-auto text-center">
 						<motion.div
 							custom={1}
 							variants={fadeUpVariants}
@@ -123,9 +128,55 @@ export function Hero({
 					</div>
 				</div>
 
-				<div className="absolute inset-0 bg-gradient-to-t from-[#030303] via-transparent to-[#030303]/80 pointer-events-none" />
+				{/* <div className="absolute inset-0 bg-gradient-to-t from-[#030303] via-transparent to-[#030303]/80 pointer-events-none" /> */}
+				{/* <RetroGrid /> */}
 			</div>
-			<RetroGrid />
+			<div className="w-full text-center space-y-5 p-5">
+				<Badge className="bg-gradient-to-t from-rose-500/[0.15] py-2">
+					PROBLEM
+				</Badge>
+				<h2 className="text-4xl sm:text-6xl md:text-5xl font-bold mb-6 md:mb-8 tracking-tight text-white">
+					Manually managing documents is inefficient.
+				</h2>
+				<div className="container md:max-w-7xl justify-center w-full grid mx-auto grid-cols-1 gap-5 md:grid-cols-3 text-white">
+					<div className="space-y-4 text-left">
+						<div className="bg-gradient-to-t from-rose-500/[0.15] rounded-full p-3 w-fit">
+							<ShieldQuestion className="text-5xl text-red-600" size={30} />
+						</div>
+						<span className="block font-semibold text-xl">
+							Information Chaos
+						</span>
+						<p className="text-gray-400">
+							Businesses struggle to handle large volumes of documents. making
+							it difficult to retrieve important Information efficiently
+						</p>
+					</div>
+					<div className="space-y-4 text-left">
+						<div className="bg-gradient-to-t from-rose-500/[0.15] rounded-full p-3 w-fit">
+							<ZapOff className="text-5xl text-red-600" size={30} />
+						</div>
+						<span className="block font-semibold text-xl">
+							Slow workflow & Decision making
+						</span>
+						<p className="text-gray-400">
+							Document management processes are time-consuming, causing delays
+							in decision making and reduce productivity.
+						</p>
+					</div>
+					<div className="space-y-4 text-left">
+						<div className="bg-gradient-to-t from-rose-500/[0.15] rounded-full p-3 w-fit">
+							<PackageSearch className="text-5xl text-red-600" size={30} />
+						</div>
+						<span className="block font-semibold text-xl">
+							Manual sorting & Retrieval
+						</span>
+						<p className="text-gray-400">
+							Finding the right document takes too much time, reducing overall
+							efficiency.
+						</p>
+					</div>
+				</div>
+			</div>
 		</>
 	);
 }

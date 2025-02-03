@@ -16,7 +16,7 @@ const GetStartedButton = ({ className }: { className?: ClassValue }) => {
 						className
 					)}
 				>
-					Get started
+					Get Started Now
 				</a>
 			</div>
 		</button>

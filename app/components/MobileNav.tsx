@@ -1,22 +1,10 @@
 "use client";
-import {
-	Cpu,
-	Globe,
-	Eye,
-	Shield,
-	Rocket,
-	Box,
-	Search,
-	Palette,
-	BookOpen,
-	FileText,
-	Newspaper,
-	ChevronDown,
-	XIcon,
-} from "lucide-react";
-import { Dispatch, SetStateAction, useState } from "react";
+import { ChevronDown, XIcon } from "lucide-react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { NAV_ITEMS } from "./Header";
+import Link from "next/link";
 
 const MobileNav = ({
 	setOpenMobileMenu,
@@ -27,191 +15,21 @@ const MobileNav = ({
 }) => {
 	const [openMenu, setOpenMenu] = useState<string | null>(null);
 
-	const handleHover = (menuLabel: string) => {
+	const handleDropDownClick = (menuLabel: string) => {
 		setOpenMenu(openMenu === menuLabel ? null : menuLabel);
 	};
 
-	const NAV_ITEMS = [
-		{
-			id: 1,
-			label: "Products",
-			subMenus: [
-				{
-					title: "DX Platform",
-					items: [
-						{
-							label: "Previews",
-							description: "Helping teams ship 6× faster",
-							icon: Cpu,
-						},
-						{
-							label: "AI",
-							description: "Powering breakthroughs",
-							icon: Search,
-						},
-					],
-				},
-				{
-					title: "Managed Infrastructure",
-					items: [
-						{
-							label: "Rendering",
-							description: "Fast, scalable, and reliable",
-							icon: Globe,
-						},
-						{
-							label: "Observability",
-							description: "Trace every step",
-							icon: Eye,
-						},
-						{
-							label: "Security",
-							description: "Scale without compromising",
-							icon: Shield,
-						},
-					],
-				},
-				{
-					title: "Open Source",
-					items: [
-						{
-							label: "Next.js",
-							description: "The native Next.js platform",
-							icon: Rocket,
-						},
-						{
-							label: "Turborepo",
-							description: "Speed with Enterprise scale",
-							icon: Box,
-						},
-						{
-							label: "AI SDK",
-							description: "The AI Toolkit for TypeScript",
-							icon: Palette,
-						},
-					],
-				},
-			],
-		},
-		{
-			id: 2,
-			label: "Solutions",
-			subMenus: [
-				{
-					title: "Use Cases",
-					items: [
-						{
-							label: "AI Apps",
-							description: "Deploy at the speed of AI",
-							icon: Cpu,
-						},
-						{
-							label: "Composable Commerce",
-							description: "Power storefronts that convert",
-							icon: Box,
-						},
-						{
-							label: "Marketing Sites",
-							description: "Launch campaigns fast",
-							icon: Rocket,
-						},
-						{
-							label: "Multi-tenant Platforms",
-							description: "Scale apps with one codebase",
-							icon: Globe,
-						},
-						{
-							label: "Web Apps",
-							description: "Ship features, not infrastructure",
-							icon: Search,
-						},
-					],
-				},
-				{
-					title: "Users",
-					items: [
-						{
-							label: "Platform Engineers",
-							description: "Automate away repetition",
-							icon: Cpu,
-						},
-						{
-							label: "Design Engineers",
-							description: "Deploy for every idea",
-							icon: Palette,
-						},
-					],
-				},
-			],
-		},
-		{
-			id: 3,
-			label: "Resources",
-			subMenus: [
-				{
-					title: "Tools",
-					items: [
-						{
-							label: "Resource Center",
-							description: "Today's best practices",
-							icon: BookOpen,
-						},
-						{
-							label: "Marketplace",
-							description: "Extend and automate workflows",
-							icon: Search,
-						},
-						{
-							label: "Templates",
-							description: "Jumpstart app development",
-							icon: FileText,
-						},
-						{
-							label: "Guides",
-							description: "Find help quickly",
-							icon: BookOpen,
-						},
-						{
-							label: "Partner Finder",
-							description: "Get help from solution partners",
-							icon: Search,
-						},
-					],
-				},
-				{
-					title: "Company",
-					items: [
-						{
-							label: "Customers",
-							description: "Trusted by the best teams",
-							icon: Newspaper,
-						},
-						{
-							label: "Blog",
-							description: "The latest posts and changes",
-							icon: FileText,
-						},
-						{
-							label: "Changelog",
-							description: "See what shipped",
-							icon: BookOpen,
-						},
-						{
-							label: "Press",
-							description: "Read the latest news",
-							icon: Newspaper,
-						},
-					],
-				},
-			],
-		},
-
-		{
-			id: 6,
-			label: "Pricing",
-			link: "#",
-		},
-	];
+	useEffect(() => {
+		const handleKeyboardPress = (event: globalThis.KeyboardEvent) => {
+			if (openMobileMenu && event.key == "Escape") {
+				setOpenMobileMenu(false);
+			}
+		};
+		document.addEventListener("keydown", handleKeyboardPress);
+		return () => {
+			document.removeEventListener("keydown", handleKeyboardPress);
+		};
+	}, [openMobileMenu, setOpenMobileMenu]);
 
 	return (
 		<AnimatePresence mode="wait">
@@ -232,7 +50,7 @@ const MobileNav = ({
 						<XIcon
 							onClick={() => setOpenMobileMenu(false)}
 							size={25}
-							className="top-5 right-5 absolute text-white hover:text-white/70 active:scale-105 cursor-pointer"
+							className="top-5 right-5 z-50 absolute text-white hover:text-white/70 active:scale-105 cursor-pointer"
 						/>
 						<div className="relative w-full h-full overflow-y-auto flex items-start justify-start p-4 pt-16">
 							<div className="relative h-full gap-5 flex flex-col items-center justify-center w-full">
@@ -241,7 +59,7 @@ const MobileNav = ({
 										<li
 											key={navItem.label}
 											className="relative w-full"
-											onClick={() => handleHover(navItem.label)}
+											onClick={() => handleDropDownClick(navItem.label)}
 										>
 											<button
 												className={cn(
@@ -264,17 +82,17 @@ const MobileNav = ({
 											{navItem.subMenus && (
 												<div
 													className={cn(
-														"overflow-hidden transition-all duration-300 ease-in-out w-fit mx-auto",
+														"overflow-auto [scrollbar-width:thin] transition-all duration-300 ease-in-out w-fit mx-auto",
 														openMenu === navItem.label
 															? "max-h-[60vh]"
 															: "max-h-0"
 													)}
 												>
-													<div className="bg-slate-950/95 p-3 backdrop-blur-md w-full">
-														<div className="flex flex-col gap-6 overflow-y-auto">
+													<div className="bg-slate-900 p-5  rounded-md backdrop-blur-md w-full">
+														<div className="flex flex-col gap-10 ">
 															{navItem.subMenus.map((sub) => (
 																<div className="w-full" key={sub.title}>
-																	<h3 className="mb-4 text-sm font-medium capitalize text-white">
+																	<h3 className="mb-4 text-sm font-semibold capitalize text-white">
 																		{sub.title}
 																	</h3>
 																	<ul className="space-y-6">
@@ -310,11 +128,7 @@ const MobileNav = ({
 											)}
 										</li>
 									))}
-									<li
-										className="relative"
-										onMouseEnter={() => handleHover("Get started")}
-										onMouseLeave={() => handleHover("")}
-									>
+									<li className="relative">
 										<button
 											className={cn(
 												"text-sm py-1.5 px-4 flex cursor-pointer text-white hover:text-white/80 transition-colors duration-300 items-center justify-center gap-1 relative"
@@ -324,13 +138,24 @@ const MobileNav = ({
 										</button>
 									</li>
 									<li className="relative">
-										<button
-											className={cn(
-												"text-sm py-2 px-4 flex cursor-pointer text-black  group transition-colors duration-300 items-center justify-center gap-1 relative bg-white rounded-xl hover:text-black hover:bg-white/80 active:bg-white/80"
-											)}
-										>
-											<span>Get started</span>
-										</button>
+										<li className="relative">
+											<Link
+												href={""}
+												type="button"
+												className="relative inline-block overflow-hidden rounded-full p-[1.5px]"
+											>
+												<span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
+												<div className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-gray-950 font-medium backdrop-blur-3xl">
+													<a
+														className={cn(
+															"inline-flex rounded-full text-center text-white group items-center w-full justify-center  bg-gradient-to-tr from-zinc-300/20 via-purple-400/30 to-transparent hover:bg-gradient-to-tr  transition-all sm:w-auto py-2 px-5"
+														)}
+													>
+														Get started
+													</a>
+												</div>
+											</Link>
+										</li>
 									</li>
 								</ul>
 							</div>
