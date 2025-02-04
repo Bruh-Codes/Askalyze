@@ -90,38 +90,33 @@ const MobileNav = ({
 												>
 													<div className="bg-slate-900 p-5  rounded-md backdrop-blur-md w-full">
 														<div className="flex flex-col gap-10 ">
-															{navItem.subMenus.map((sub) => (
-																<div className="w-full" key={sub.title}>
-																	<h3 className="mb-4 text-sm font-semibold capitalize text-white">
-																		{sub.title}
-																	</h3>
-																	<ul className="space-y-6">
-																		{sub.items.map((item) => {
-																			const Icon = item.icon;
-																			return (
-																				<li key={item.label}>
-																					<a
-																						href="#"
-																						className="flex items-start space-x-3 group"
-																					>
-																						<div className="text-white rounded-md flex items-center justify-center size-9 shrink-0 group-hover:bg-accent group-hover:text-accent-foreground transition-colors duration-300">
-																							<Icon className="h-5 w-5 flex-none" />
-																						</div>
-																						<div className="leading-5 text-white">
-																							<p className="text-sm font-medium group-hover:text-white/70 duration-300">
-																								{item.label}
-																							</p>
-																							<p className="text-xs group-hover:text-white/70 transition-colors duration-300">
-																								{item.description}
-																							</p>
-																						</div>
-																					</a>
-																				</li>
-																			);
-																		})}
-																	</ul>
-																</div>
-															))}
+															<ul className="space-y-6">
+																{navItem.subMenus.map((sub) => {
+																	return sub.items.map((item) => {
+																		const Icon = item.icon;
+																		return (
+																			<li key={item.label}>
+																				<a
+																					href="#"
+																					className="flex items-start space-x-3 group"
+																				>
+																					<div className="text-white rounded-md flex items-center justify-center size-9 shrink-0 group-hover:bg-accent group-hover:text-accent-foreground transition-colors duration-300">
+																						<Icon className="h-5 w-5 flex-none" />
+																					</div>
+																					<div className="leading-5 text-white">
+																						<p className="text-sm font-medium group-hover:text-white/70 duration-300">
+																							{item.label}
+																						</p>
+																						<p className="text-xs group-hover:text-white/70 transition-colors duration-300">
+																							{item.description}
+																						</p>
+																					</div>
+																				</a>
+																			</li>
+																		);
+																	});
+																})}
+															</ul>
 														</div>
 													</div>
 												</div>

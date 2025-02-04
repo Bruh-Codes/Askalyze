@@ -3,20 +3,10 @@
 import { motion } from "framer-motion";
 import Header from "./Header";
 import GetStartedButton from "./GetStartedButton";
-import RetroGrid from "./RetroGrid";
+// import RetroGrid from "./RetroGrid";
 import ElegantShape from "./ElegantShape";
 import { Badge } from "@/components/ui/badge";
-import {
-	PackageSearch,
-	ShieldAlert,
-	ShieldQuestion,
-	ZapOff,
-} from "lucide-react";
-// const pacifico = Pacifico({
-// 	subsets: ["latin"],
-// 	weight: ["400"],
-// 	variable: "--font-pacifico",
-// });
+import { PackageSearch, ShieldQuestion, ZapOff } from "lucide-react";
 
 export function Hero({
 	title1 = "Revolutionize Document Analysis with AI-Powered Insights",
@@ -41,8 +31,6 @@ export function Hero({
 		<>
 			<Header />
 			<div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden ">
-				{/* <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/[0.05] via-transparent to-rose-500/[0.05] blur-3xl" /> */}
-
 				<div className="absolute inset-0 overflow-hidden">
 					<ElegantShape
 						delay={0.3}
@@ -55,8 +43,8 @@ export function Hero({
 
 					<ElegantShape
 						delay={0.5}
-						width={"w-[400px] sm:w-[500px]"}
-						height={"h-[120px]"}
+						width={"w-[400px] sm:w-[650px]"}
+						height={"h-[120px] md:h-[160px]"}
 						rotate={-15}
 						gradient="from-rose-500/[0.15]"
 						className="right-[-30%] md:right-[0%] top-[70%] md:top-[60%]"
@@ -64,8 +52,8 @@ export function Hero({
 
 					<ElegantShape
 						delay={0.4}
-						width={"w-[200px] sm:w-[300px]"}
-						height={"h-[80px]"}
+						width={"w-[200px] sm:w-[700px]"}
+						height={"h-[80px] md:h-[150px]"}
 						rotate={20}
 						gradient="from-violet-500/[0.15]"
 						className="left-[5%] md:left-[5%] bottom-[10%] sm:bottom-[10%] md:bottom-[20%]"
@@ -131,15 +119,32 @@ export function Hero({
 				{/* <div className="absolute inset-0 bg-gradient-to-t from-[#030303] via-transparent to-[#030303]/80 pointer-events-none" /> */}
 				{/* <RetroGrid /> */}
 			</div>
-			<div className="w-full text-center space-y-5 p-5">
+			<motion.div
+				className="w-full text-center space-y-5 p-5"
+				initial={{ opacity: 0, y: 20 }}
+				animate={{ opacity: 1, y: 0 }}
+				transition={{ duration: 0.6, ease: "easeOut" }}
+			>
 				<Badge className="bg-gradient-to-t from-rose-500/[0.15] py-2">
 					PROBLEM
 				</Badge>
-				<h2 className="text-4xl sm:text-6xl md:text-5xl font-bold mb-6 md:mb-8 tracking-tight text-white">
+				<motion.h2
+					initial={{ opacity: 0, y: 20 }}
+					whileInView={{ opacity: 1, y: 0 }}
+					transition={{ duration: 0.7, ease: "easeOut" }}
+					viewport={{ once: true }}
+					className="text-4xl sm:text-6xl md:text-5xl font-bold mb-6 md:mb-8 tracking-tight text-white"
+				>
 					Manually managing documents is inefficient.
-				</h2>
+				</motion.h2>
 				<div className="container md:max-w-7xl justify-center w-full grid mx-auto grid-cols-1 gap-5 md:grid-cols-3 text-white">
-					<div className="space-y-4 text-left">
+					<motion.div
+						className="space-y-4 text-left"
+						initial={{ opacity: 0, y: 20 }}
+						whileInView={{ opacity: 1, y: 0 }}
+						transition={{ duration: 0.7, ease: "easeOut" }}
+						viewport={{ once: true }}
+					>
 						<div className="bg-gradient-to-t from-rose-500/[0.15] rounded-full p-3 w-fit">
 							<ShieldQuestion className="text-5xl text-red-600" size={30} />
 						</div>
@@ -150,8 +155,14 @@ export function Hero({
 							Businesses struggle to handle large volumes of documents. making
 							it difficult to retrieve important Information efficiently
 						</p>
-					</div>
-					<div className="space-y-4 text-left">
+					</motion.div>
+					<motion.div
+						className="space-y-4 text-left"
+						initial={{ opacity: 0, y: 20 }}
+						whileInView={{ opacity: 1, y: 0 }}
+						transition={{ duration: 0.7, ease: "easeOut" }}
+						viewport={{ once: true }}
+					>
 						<div className="bg-gradient-to-t from-rose-500/[0.15] rounded-full p-3 w-fit">
 							<ZapOff className="text-5xl text-red-600" size={30} />
 						</div>
@@ -162,8 +173,14 @@ export function Hero({
 							Document management processes are time-consuming, causing delays
 							in decision making and reduce productivity.
 						</p>
-					</div>
-					<div className="space-y-4 text-left">
+					</motion.div>
+					<motion.div
+						className="space-y-4 text-left"
+						initial={{ opacity: 0, y: 20 }}
+						whileInView={{ opacity: 1, y: 0 }}
+						transition={{ duration: 0.7, ease: "easeOut" }}
+						viewport={{ once: true }}
+					>
 						<div className="bg-gradient-to-t from-rose-500/[0.15] rounded-full p-3 w-fit">
 							<PackageSearch className="text-5xl text-red-600" size={30} />
 						</div>
@@ -174,9 +191,9 @@ export function Hero({
 							Finding the right document takes too much time, reducing overall
 							efficiency.
 						</p>
-					</div>
+					</motion.div>
 				</div>
-			</div>
+			</motion.div>
 		</>
 	);
 }

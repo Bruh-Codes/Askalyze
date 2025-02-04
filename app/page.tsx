@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { Hero } from "./components/Hero";
 import {
@@ -13,6 +14,8 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { Check } from "lucide-react";
+import { HowITworks } from "./components/HowItWorks";
+import { motion } from "framer-motion";
 
 const Page = () => {
 	const features = [
@@ -70,24 +73,40 @@ const Page = () => {
 						<Badge className="bg-indigo-500/[0.15]">Features</Badge>
 					</div>
 					<div className="flex gap-2 flex-col text-white">
-						<h2 className="text-3xl md:text-5xl tracking-tighter lg:max-w-xl font-regular">
+						<motion.h2
+							initial={{ opacity: 0, y: 20 }}
+							whileInView={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.7, ease: "easeOut" }}
+							viewport={{ once: true }}
+							className="text-3xl md:text-5xl tracking-tighter lg:max-w-xl font-regular"
+						>
 							AI-Powered Document Management
-						</h2>
-						<p className="text-lg max-w-xl lg:max-w-xl leading-relaxed tracking-tight text-gray-400">
+						</motion.h2>
+						<motion.p
+							initial={{ opacity: 0, y: 20 }}
+							whileInView={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.7, ease: "easeOut" }}
+							viewport={{ once: true }}
+							className="text-lg max-w-xl lg:max-w-xl leading-relaxed tracking-tight text-gray-400"
+						>
 							Streamline your document workflow with advanced AI analysis and
 							insights.
-						</p>
+						</motion.p>
 					</div>
-					<div className="grid grid-cols-1 w-full md:grid-cols-2 lg:grid-cols-4  relative z-10 py-10 max-w-7xl mx-auto">
+					<div className="grid grid-cols-1 w-full md:grid-cols-2 lg:grid-cols-4 relative z-10 py-10 max-w-7xl mx-auto">
 						{features.map(({ title, description, icon }, index) => (
-							<div
+							<motion.div
 								key={title}
 								className={cn(
-									"flex flex-col lg:border-r w-full  py-10 relative group/feature border-neutral-800",
+									"flex flex-col lg:border-r w-full py-10 relative group/feature border-neutral-800",
 									(index === 0 || index === 4) &&
 										"lg:border-l border-neutral-800",
 									index < 4 && "lg:border-b border-neutral-800"
 								)}
+								initial={{ opacity: 0, y: 20 }}
+								whileInView={{ opacity: 1, y: 0 }}
+								transition={{ duration: 0.6, ease: "easeOut" }}
+								viewport={{ once: true }}
 							>
 								{index < 4 && (
 									<div className="opacity-0 group-hover/feature:opacity-100 transition duration-200 absolute inset-0 h-full w-full bg-gradient-to-t from-neutral-800 to-transparent pointer-events-none" />
@@ -107,7 +126,7 @@ const Page = () => {
 								<p className="text-sm text-gray-400 max-w-xs relative z-10 px-10">
 									{description}
 								</p>
-							</div>
+							</motion.div>
 						))}
 					</div>
 				</div>
@@ -115,23 +134,46 @@ const Page = () => {
 
 			{/* Target Audience */}
 			<div className="container lg:w-10/12 mx-auto w-full p-5">
-				<div className="flex gap-4 py-20 lg:py-32 flex-col items-start">
-					<div>
+				<div className="flex gap-4 py-20 flex-col items-start">
+					<motion.div
+						initial={{ opacity: 0, y: 20 }}
+						whileInView={{ opacity: 1, y: 0 }}
+						transition={{ duration: 0.7, ease: "easeOut" }}
+						viewport={{ once: true }}
+					>
 						<Badge>Audience</Badge>
-					</div>
+					</motion.div>
 					<div className="flex gap-2 flex-col text-white">
-						<h2 className="text-3xl md:text-5xl tracking-tighter lg:max-w-xl font-regular">
+						<motion.h2
+							initial={{ opacity: 0, y: 20 }}
+							whileInView={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.7, ease: "easeOut" }}
+							viewport={{ once: true }}
+							className="text-3xl md:text-5xl tracking-tighter lg:max-w-xl font-regular"
+						>
 							Who benefits from our platform?
-						</h2>
-						<p className="text-lg max-w-xl lg:max-w-xl leading-relaxed tracking-tight text-gray-400">
+						</motion.h2>
+						<motion.p
+							initial={{ opacity: 0, y: 20 }}
+							whileInView={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.7, ease: "easeOut" }}
+							viewport={{ once: true }}
+							className="text-lg max-w-xl lg:max-w-xl leading-relaxed tracking-tight text-gray-400"
+						>
 							{/* Designed for professionals, built for the future. */}
 							Our platform transforms the way Businesses and professionals
 							handle documents,ensuring efficiency, security, and AI-driven
 							insights
-						</p>
+						</motion.p>
 					</div>
 					<div className="grid grid-cols-1 md:grid-cols-2 pt-12 items-start lg:grid-cols-3 gap-5">
-						<div className="flex flex-row gap-6 w-full items-start">
+						<motion.div
+							initial={{ opacity: 0, y: 20 }}
+							whileInView={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.7, ease: "easeOut" }}
+							viewport={{ once: true }}
+							className="flex flex-row gap-6 w-full items-start"
+						>
 							<Check className="w-4 h-4 mt-2 shrink-0 text-white" />
 							<div className="flex flex-col gap-1 text-white">
 								<p>Enterprise and Corporations</p>
@@ -140,8 +182,14 @@ const Page = () => {
 									other tools for smooth document analysis.
 								</p>
 							</div>
-						</div>
-						<div className="flex flex-row gap-6 items-start">
+						</motion.div>
+						<motion.div
+							initial={{ opacity: 0, y: 20 }}
+							whileInView={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.7, ease: "easeOut" }}
+							viewport={{ once: true }}
+							className="flex flex-row gap-6 items-start"
+						>
 							<Check className="w-4 h-4 mt-2 shrink-0 text-white" />
 							<div className="flex flex-col gap-1 text-white">
 								<p>Financial Institutions & Banks</p>
@@ -150,8 +198,14 @@ const Page = () => {
 									processing and more with AI-powered insights
 								</p>
 							</div>
-						</div>
-						<div className="flex flex-row gap-6 items-start">
+						</motion.div>
+						<motion.div
+							initial={{ opacity: 0, y: 20 }}
+							whileInView={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.7, ease: "easeOut" }}
+							viewport={{ once: true }}
+							className="flex flex-row gap-6 items-start"
+						>
 							<Check className="w-4 h-4 mt-2 shrink-0 text-white" />
 							<div className="flex flex-col gap-1 text-white">
 								<p>Legal & Compliance Teams</p>
@@ -160,8 +214,14 @@ const Page = () => {
 									automated compliance tracking and more.
 								</p>
 							</div>
-						</div>
-						<div className="flex flex-row gap-6 w-full items-start">
+						</motion.div>
+						<motion.div
+							initial={{ opacity: 0, y: 20 }}
+							whileInView={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.7, ease: "easeOut" }}
+							viewport={{ once: true }}
+							className="flex flex-row gap-6 w-full items-start"
+						>
 							<Check className="w-4 h-4 mt-2 shrink-0 text-white" />
 							<div className="flex flex-col gap-1 text-white">
 								<p>Startups & Firms</p>
@@ -169,8 +229,14 @@ const Page = () => {
 									Designed to support rapid business growth with advanced AI.
 								</p>
 							</div>
-						</div>
-						<div className="flex flex-row gap-6 items-start">
+						</motion.div>
+						<motion.div
+							initial={{ opacity: 0, y: 20 }}
+							whileInView={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.7, ease: "easeOut" }}
+							viewport={{ once: true }}
+							className="flex flex-row gap-6 items-start"
+						>
 							<Check className="w-4 h-4 mt-2 shrink-0 text-white" />
 							<div className="flex flex-col gap-1 text-white">
 								<p>Government & Public Sector</p>
@@ -179,8 +245,14 @@ const Page = () => {
 									with Government regulations and more.
 								</p>
 							</div>
-						</div>
-						<div className="flex flex-row gap-6 items-start">
+						</motion.div>
+						<motion.div
+							initial={{ opacity: 0, y: 20 }}
+							whileInView={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.7, ease: "easeOut" }}
+							viewport={{ once: true }}
+							className="flex flex-row gap-6 items-start"
+						>
 							<Check className="w-4 h-4 mt-2 shrink-0 text-white" />
 							<div className="flex flex-col gap-1 text-white">
 								<p>Educational Institutions</p>
@@ -189,8 +261,14 @@ const Page = () => {
 									for students and many more features
 								</p>
 							</div>
-						</div>
-						<div className="flex flex-row gap-6 items-start">
+						</motion.div>
+						<motion.div
+							initial={{ opacity: 0, y: 20 }}
+							whileInView={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.7, ease: "easeOut" }}
+							viewport={{ once: true }}
+							className="flex flex-row gap-6 items-start"
+						>
 							<Check className="w-4 h-4 mt-2 shrink-0 text-white" />
 							<div className="flex flex-col gap-1 text-white">
 								<p>More</p>
@@ -200,10 +278,12 @@ const Page = () => {
 									analysis an AI-powered insights.
 								</p>
 							</div>
-						</div>
+						</motion.div>
 					</div>
 				</div>
 			</div>
+
+			<HowITworks />
 		</div>
 	);
 };

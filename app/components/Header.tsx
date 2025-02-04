@@ -7,7 +7,6 @@ import {
 	Rocket,
 	Box,
 	Search,
-	Palette,
 	ChevronDown,
 	Menu,
 } from "lucide-react";
@@ -15,7 +14,6 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import MobileNav from "./MobileNav";
-import Link from "next/link";
 
 export const NAV_ITEMS = [
 	{
@@ -23,60 +21,61 @@ export const NAV_ITEMS = [
 		label: "Products",
 		subMenus: [
 			{
-				title: "DX Platform",
 				items: [
 					{
-						label: "Previews",
-						description: "Helping teams ship 6× faster",
+						label: "Document Automation",
+						description:
+							"Streamline your organization's most complex document workflows. Our AI-powered automation engine handles tasks freeing your team to focus on higher-value work.",
 						icon: Cpu,
 					},
 					{
-						label: "AI",
-						description: "Powering breakthroughs",
+						label: "Predictive Insights",
+						description:
+							"Uncover hidden trends and patterns in your business data for smart decision making. ",
 						icon: Search,
 					},
-				],
-			},
-			{
-				title: "Managed Infrastructure",
-				items: [
 					{
-						label: "Rendering",
-						description: "Fast, scalable, and reliable",
+						label: "Secure Collaboration",
+						description:
+							"Enable seamless teamwork while maintaining ironclad control over your sensitive documents. Our platform provides granular access permissions, audit trails, and secure file sharing to protect your critical information.",
 						icon: Globe,
 					},
 					{
-						label: "Observability",
-						description: "Trace every step",
+						label: "Intelligent Document Generation",
+						description:
+							"Save time and resources by automating the creation of complex documents. Our platform leverages Natural Language Processing to understand your content and generate personalized reports.",
 						icon: Eye,
 					},
 					{
-						label: "Security",
-						description: "Scale without compromising",
+						label: "Intelligent Document Transformation",
+						description:
+							"Our AI can transform your document and even extract insights into any preferred format  - with a single click.",
 						icon: Shield,
 					},
-				],
-			},
-			{
-				title: "Open Source",
-				items: [
 					{
-						label: "Next.js",
-						description: "The native Next.js platform",
+						label: "Unified Document Ecosystem",
+						description:
+							"Effortlessly access and manage your business-critical documents, Connect Ai with cloud storage providers like Google Drive, Microsoft OneDrive allowing you to centralize control over your entire documents.",
 						icon: Rocket,
 					},
-					{
-						label: "Turborepo",
-						description: "Speed with Enterprise scale",
-						icon: Box,
-					},
-					{
-						label: "AI SDK",
-						description: "The AI Toolkit for TypeScript",
-						icon: Palette,
-					},
 				],
 			},
+
+			// {
+			// .it: "Open Source",
+			// 	items: [
+			// 		{
+			// 			label: "Turborepo",
+			// 			description: "Speed with Enterprise scale",
+			// 			icon: Box,
+			// 		},
+			// 		{
+			// 			label: "AI SDK",
+			// 			description: "The AI Toolkit for TypeScript",
+			// 			icon: Palette,
+			// 		},
+			// 	],
+			// },
 		],
 	},
 	{
@@ -84,7 +83,6 @@ export const NAV_ITEMS = [
 		label: "Solutions",
 		subMenus: [
 			{
-				title: "Use Cases",
 				items: [
 					{
 						label: "AI Apps",
@@ -92,13 +90,21 @@ export const NAV_ITEMS = [
 						icon: Cpu,
 					},
 					{
-						label: "Composable Commerce",
-						description: "Power storefronts that convert",
+						label: "Financial Services",
+						description:
+							"Automate document-centric processes like loan origination, claims processing, and auditing with intelligent automation.",
 						icon: Box,
 					},
 					{
-						label: "Marketing Sites",
-						description: "Launch campaigns fast",
+						label: "Automated Invoice Processing",
+						description:
+							"Streamline your accounts payable workflows with lightning-fast invoice processing. Our AI quickly capture, validate, and route invoices for approval reducing manual data entry",
+						icon: Box,
+					},
+					{
+						label: "HR Onboarding",
+						description:
+							"Simplify new hire paperwork with digital document workflows. Centralize employee records and streamline onboarding from offer to orientation and eliminate manual data entry.",
 						icon: Rocket,
 					},
 					{
@@ -113,27 +119,17 @@ export const NAV_ITEMS = [
 					},
 				],
 			},
-			{
-				title: "Users",
-				items: [
-					{
-						label: "Platform Engineers",
-						description: "Automate away repetition",
-						icon: Cpu,
-					},
-					{
-						label: "Design Engineers",
-						description: "Deploy for every idea",
-						icon: Palette,
-					},
-				],
-			},
 		],
 	},
 
 	{
 		id: 6,
 		label: "Pricing",
+		link: "#",
+	},
+	{
+		id: 7,
+		label: "Contact",
 		link: "#",
 	},
 ];
@@ -147,11 +143,11 @@ export default function Header() {
 
 	return (
 		<>
-			<header className="fixed flex justify-between p-5 bg-slate-950/70 backdrop-blur-md text-white left-0 w-full right-0  top-0 z-50 gap-5">
-				<div className="relative w-full flex items-center justify-between">
-					<p className="mr-auto"> Logo</p>
-					<div className="relative ml-auto gap-5 hidden md:flex flex-col items-center justify-center">
-						<ul className="relative flex items-center justify-between">
+			<header className="fixed flex justify-between p-5 bg-slate-950/70 backdrop-blur-md text-white left-0 w-full right-0 top-0 z-50">
+				<div className="relative w-full flex items-center justify-between container mx-auto max-w-[1400px] px-4">
+					<p className=""> Logo</p>
+					<div className="relative gap-5 hidden md:flex flex-col items-center justify-center flex-1">
+						<ul className="relative flex items-center justify-center space-x-2">
 							{NAV_ITEMS.map((navItem) => (
 								<li
 									key={navItem.label}
@@ -175,49 +171,42 @@ export default function Header() {
 
 									<AnimatePresence>
 										{openMenu === navItem.label && navItem.subMenus && (
-											<div className="w-auto absolute left-0 top-full pt-2">
+											<div className="absolute left-1/2 -translate-x-1/2 top-full pt-2 w-[90vw] max-w-[1200px]">
 												<motion.div
-													className="bg-slate-950/95 backdrop-blur-md p-4 w-max"
+													className="bg-slate-950/95 backdrop-blur-md p-6 w-full"
 													style={{ borderRadius: 16 }}
 													layoutId="menu"
 												>
-													<div className="w-fit shrink-0 flex space-x-9 overflow-hidden">
-														{navItem.subMenus.map((sub) => (
-															<motion.div
-																layout
-																className="w-full"
-																key={sub.title}
-															>
-																<h3 className="mb-4 text-sm font-medium capitalize text-white">
-																	{sub.title}
-																</h3>
-																<ul className="space-y-6">
-																	{sub.items.map((item) => {
+													<div className="w-full flex overflow-hidden">
+														<motion.div layout className="w-full">
+															<ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+																{navItem.subMenus.map((sub) => {
+																	return sub.items.map((item) => {
 																		const Icon = item.icon;
 																		return (
 																			<li key={item.label}>
 																				<a
 																					href="#"
-																					className="flex items-start space-x-3 group"
+																					className="flex items-start space-x-3 group p-2 hover:bg-slate-900/50 rounded-lg transition-colors"
 																				>
 																					<div className="text-white rounded-md flex items-center justify-center size-9 shrink-0 group-hover:bg-accent group-hover:text-accent-foreground transition-colors duration-300">
 																						<Icon className="h-5 w-5 flex-none" />
 																					</div>
-																					<div className="leading-5 w-max text-white">
-																						<p className="text-sm font-medium group-hover:text-white/70 shrink-0 duration-300">
+																					<div className="leading-5 flex-1 min-w-0 text-white">
+																						<p className="text-sm font-medium group-hover:text-white/70 duration-300">
 																							{item.label}
 																						</p>
-																						<p className="text-xs  shrink-0 group-hover:text-white/70 transition-colors duration-300">
+																						<p className="text-xs text-white/70 group-hover:text-white/50 transition-colors duration-300 line-clamp-2">
 																							{item.description}
 																						</p>
 																					</div>
 																				</a>
 																			</li>
 																		);
-																	})}
-																</ul>
-															</motion.div>
-														))}
+																	});
+																})}
+															</ul>
+														</motion.div>
 													</div>
 												</motion.div>
 											</div>
@@ -225,43 +214,42 @@ export default function Header() {
 									</AnimatePresence>
 								</li>
 							))}
-							<li
-								className="relative"
-								onMouseEnter={() => handleHover("Get started")}
-								onMouseLeave={() => handleHover(null)}
-							>
-								<button
-									className={cn(
-										"text-sm py-1.5 px-4 flex cursor-pointer text-white hover:text-white/80 transition-colors duration-300 items-center justify-center gap-1 relative"
-									)}
-								>
-									<span>Sign in</span>
-								</button>
-							</li>
-							<li className="relative">
-								<Link
-									href={""}
-									type="button"
-									className="relative inline-block overflow-hidden rounded-full p-[1.5px]"
-								>
-									<span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
-									<div className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-gray-950 text-xs font-medium backdrop-blur-3xl">
-										<a
-											className={cn(
-												"inline-flex rounded-full text-center text-white group items-center w-full justify-center  bg-gradient-to-tr from-zinc-300/20 via-purple-400/30 to-transparent hover:bg-gradient-to-tr  transition-all sm:w-auto py-3 px-5 text-sm"
-											)}
-										>
-											Get started
-										</a>
-									</div>
-								</Link>
-							</li>
 						</ul>
 					</div>
+					<div className="flex gap-2">
+						<button
+							type="button"
+							onMouseEnter={() => handleHover("Get started")}
+							onMouseLeave={() => handleHover(null)}
+							className={cn(
+								"text-sm py-1.5 px-4 flex cursor-pointer text-white hover:text-white/80 transition-colors duration-300 items-center justify-center gap-1 relative"
+							)}
+						>
+							<span>Sign in</span>
+						</button>
+
+						<button
+							type="button"
+							className="relative inline-block overflow-hidden rounded-full p-[1.5px]"
+						>
+							<span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
+							<div className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-gray-950 text-xs font-medium backdrop-blur-3xl">
+								<a
+									className={cn(
+										"inline-flex rounded-full text-center text-white group items-center w-full justify-center  bg-gradient-to-tr from-zinc-300/20 via-purple-400/30 to-transparent hover:bg-gradient-to-tr  transition-all sm:w-auto py-3 px-5 text-sm"
+									)}
+								>
+									Get started
+								</a>
+							</div>
+						</button>
+					</div>
 				</div>
+
 				<button type="button" onClick={() => setOpenMobileMenu(true)}>
 					<Menu className="ml-auto md:hidden cursor-pointer text-white hover:text-white/70" />
 				</button>
+
 				<MobileNav
 					openMobileMenu={openMobileMenu}
 					setOpenMobileMenu={setOpenMobileMenu}
