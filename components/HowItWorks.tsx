@@ -66,11 +66,9 @@ export function HowITworks({
 	}, [progress, autoPlayInterval, features.length]);
 
 	return (
-		<div className="container lg:w-10/12 mx-auto w-full p-5">
+		<div className="container lg:w-10/12 mx-auto py-24 w-full p-5">
 			<div className="flex gap-4 w-full flex-col items-center">
-				<Badge className="bg-gradient-to-t from-rose-500/[0.15] py-2">
-					How it works
-				</Badge>
+				<Badge>How it works</Badge>
 				<motion.h2
 					initial={{ opacity: 0, y: 20 }}
 					whileInView={{ opacity: 1, y: 0 }}

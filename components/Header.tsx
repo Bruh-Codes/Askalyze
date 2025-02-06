@@ -14,6 +14,13 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import MobileNav from "./MobileNav";
+import {
+	SignInButton,
+	SignUpButton,
+	SignedIn,
+	SignedOut,
+	UserButton,
+} from "@clerk/nextjs";
 
 export const NAV_ITEMS = [
 	{
@@ -216,33 +223,31 @@ export default function Header() {
 							))}
 						</ul>
 					</div>
-					<div className="flex gap-2">
-						<button
-							type="button"
-							onMouseEnter={() => handleHover("Get started")}
-							onMouseLeave={() => handleHover(null)}
-							className={cn(
-								"text-sm py-1.5 px-4 flex cursor-pointer text-white hover:text-white/80 transition-colors duration-300 items-center justify-center gap-1 relative"
-							)}
-						>
-							<span>Sign in</span>
-						</button>
-
-						<button
-							type="button"
-							className="relative inline-block overflow-hidden rounded-full p-[1.5px]"
-						>
-							<span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
-							<div className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-gray-950 text-xs font-medium backdrop-blur-3xl">
-								<a
-									className={cn(
-										"inline-flex rounded-full text-center text-white group items-center w-full justify-center  bg-gradient-to-tr from-zinc-300/20 via-purple-400/30 to-transparent hover:bg-gradient-to-tr  transition-all sm:w-auto py-3 px-5 text-sm"
-									)}
+					<div className="flex gap-2 space-x-5">
+						<SignedOut>
+							<SignInButton />
+							<SignUpButton>
+								<button
+									type="button"
+									className="relative inline-block overflow-hidden rounded-full p-[1.5px]"
 								>
-									Get started
-								</a>
-							</div>
-						</button>
+									<span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
+									<div className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-gray-950 text-xs font-medium backdrop-blur-3xl">
+										<a
+											className={cn(
+												"inline-flex rounded-full text-center text-white group items-center w-full justify-center  bg-gradient-to-tr from-zinc-300/20 via-purple-400/30 to-transparent hover:bg-gradient-to-tr  transition-all sm:w-auto py-3 px-5 text-sm"
+											)}
+										>
+											Get started
+										</a>
+									</div>
+								</button>
+							</SignUpButton>
+						</SignedOut>
+
+						<SignedIn>
+							<UserButton />
+						</SignedIn>
 					</div>
 				</div>
 

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Serif } from "next/font/google";
 import "./globals.css";
+import { ClerkProvider } from "@clerk/nextjs";
 
 const iBM_Plex_Serif = IBM_Plex_Serif({
 	variable: "--font-montserrat",
@@ -19,10 +20,12 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en">
-			<body className={`${iBM_Plex_Serif.variable} antialiased`}>
-				{children}
-			</body>
-		</html>
+		<ClerkProvider>
+			<html lang="en">
+				<body className={`${iBM_Plex_Serif.variable} antialiased`}>
+					{children}
+				</body>
+			</html>
+		</ClerkProvider>
 	);
 }
